@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="app.js">
+</head>
+<body>
+    <div class="container">
+        <a href="#" class="rolling-text">HOME</a>
+        <a href="#" class="rolling-text">PROJECTS</a>
+        <a href="#" class="rolling-text">ABOUT</a>
+        <a href="#" class="rolling-text">CONTACT US</a>
+    </div>
+    <script>
+        let elements = document.querySelectorAll(".rolling-text");
+
+        elements.forEach((element) =>{
+            let innerText = element.innerText;
+            element.innerHTML = "";
+
+            let textContainer = document.createElement("div");
+            textContainer.classList.add("block");
+
+            for(let letter of innerText){
+                let span = document.createElement("span");
+                span.innerText = letter.trim() === "" ? "\xa0" : letter;
+                span.classList.add("letter");
+                textContainer.appendChild(span);
+            }
+
+            element.appendChild(textContainer);
+            element.appendChild(textContainer.cloneNode(true));
+        })
+
+        elements.forEach((element) => {
+            element.addEventListener("mouseover", () => {
+                element.classList.remove("play");
+            });
+        });
+    </script>
+
+    <div class="cursor"></div>
+    <div class="cursor2"></div>
+    
+    <script>
+        var cursor = document.querySelector(".cursor")
+        var cursor2 = document.querySelector(".cursor2")
+        document.addEventListener("mousemove", function(e){
+            cursor.style.cssText = cursor2.style.cssText = "left: " + e.clientX + "px; top: " + e.clientY + "px;";
+        })
+    </script>
+
+</body>
+</html>
